@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>ru.tsu</groupId>
+        <artifactId>dnevnik</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>migration</artifactId>
+    <dependencies>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.2-1004-jdbc41</version>
+        </dependency>
+
+    </dependencies>
+
+
+<properties>
+
+
+<database.user>dnevnik</database.user>
+<database.password>dnevnik</database.password>
+<database.url>jdbc:postgresql://localhost:5432/dnevnik</database.url>
+<database_test.url>jdbc:postgresql://localhost:5432/dnevnik_test</database_test.url>
+
+<!--<database.url>jdbc:postgresql://31.41.42.117:5432/netprint</database.url>-->
+<!--<database_test.url>jdbc:postgresql://31.41.42.117:5432/netprint_test</database_test.url>-->
+
+</properties>
+
+    <build>
+        <plugins>
+            <plugin>
+
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-plugin</artifactId>
+                <version>1.9.5.0</version>
+
+                <configuration>
+                    <driver>org.postgresql.Driver</driver>
+                </configuration>
+
+                <executions>
+
+                    <execution>
+                        <id>testing</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <changeLogFile>src/main/resources/changelog-master.xml</changeLogFile>
+                            <url>${database.url}</url>
+                            <username>${database.user}</username>
+                            <password>${database.password}</password>
+                        </configuration>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>testing_test</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <changeLogFile>src/main/resources/changelog-master.xml</changeLogFile>
+                            <url>${database_test.url}</url>
+                            <username>${database.user}</username>
+                            <password>${database.password}</password>
+                        </configuration>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+
+                </executions>
+
+            </plugin>
+        </plugins>
+    </build>
+</project>
