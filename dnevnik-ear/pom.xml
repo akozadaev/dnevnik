@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>ru.tsu</groupId>
+        <artifactId>dnevnik</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>dnevnik-ear</artifactId>
+    <groupId>ru.tsu</groupId>
+    <packaging>ear</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>ear assembly</name>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>ru.tsu</groupId>
+            <artifactId>db</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
+
+        <!--        <dependency>
+                    <groupId>netprint</groupId>
+                    <artifactId>core</artifactId>
+                    <type>ejb</type>
+                    <version>1.0</version>
+                </dependency>-->
+
+        <dependency>
+            <groupId>ru.tsu</groupId>
+            <artifactId>webgui</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>war</type>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

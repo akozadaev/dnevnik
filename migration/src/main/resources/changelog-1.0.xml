@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="kas01" author="kas">
+
+        <sql splitStatements="false">
+
+            CREATE SEQUENCE students_seq
+            INCREMENT 1
+            MINVALUE 1
+            MAXVALUE 9223372036854775807
+            START 1
+            CACHE 1;
+            ALTER TABLE students_seq OWNER TO dnevnik;
+            CREATE TABLE students
+            (
+            id INTEGER PRIMARY KEY DEFAULT nextval('students_seq'::regclass),
+            name VARCHAR(128) NOT NULL
+            )
+            WITH (OIDS=FALSE);
+        </sql>
+
+           <sql splitStatements="false">
+            CREATE SEQUENCE evaluation_seq
+            INCREMENT 1
+            MINVALUE 1
+            MAXVALUE 9223372036854775807
+            START 1
+            CACHE 1;
+            ALTER TABLE evaluation_seq OWNER TO dnevnik;
+
+            CREATE TABLE evaluation
+            (
+            id INTEGER PRIMARY KEY DEFAULT nextval('evaluation_seq'::regclass),
+            id_stud INTEGER NOT NULL DEFAULT 0,
+            id_teach INTEGER NOT NULL DEFAULT 0,
+            value INTEGER NOT NULL DEFAULT 0,
+            date_evaluat TIMESTAMP WITHOUT TIME ZONE
+            );
+            ALTER TABLE evaluation OWNER TO dnevnik;
+        </sql>
+
+        <sql splitStatements="false">
+            CREATE SEQUENCE accounts_seq
+            INCREMENT 1
+            MINVALUE 1
+            MAXVALUE 9223372036854775807
+            START 1
+            CACHE 1;
+            ALTER TABLE accounts_seq OWNER TO dnevnik;
+
+        CREATE TABLE accounts
+        (
+        id INTEGER PRIMARY KEY DEFAULT nextval('accounts_seq'::regclass),
+        login CHARACTER VARYING(255) NOT NULL,
+        email CHARACTER VARYING(255) NOT NULL,
+        last_name CHARACTER VARYING(64) NOT NULL,
+        first_name CHARACTER VARYING(64) NOT NULL,
+        middle_name CHARACTER VARYING(64) NOT NULL,
+        phoneNumber CHARACTER VARYING(128),
+        phoneNumberMobile CHARACTER VARYING(128),
+        secret CHARACTER VARYING(128),
+        password_hash INTEGER NOT NULL,
+        role INTEGER NOT NULL DEFAULT 0,
+        region INTEGER NOT NULL DEFAULT 0,
+        about  CHARACTER VARYING(1024),
+        create_time TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT LOCALTIMESTAMP,
+        last_time TIMESTAMP WITHOUT TIME ZONE,
+        stop_time TIMESTAMP WITHOUT TIME ZONE,
+        expired_time TIMESTAMP WITHOUT TIME ZONE,
+        try_count INTEGER NOT NULL DEFAULT 0,
+        task_ids INTEGER[],
+        status INTEGER,
+        banned BOOLEAN,
+        CONSTRAINT unique_login UNIQUE (login),
+        CONSTRAINT unique_email UNIQUE (email)
+        );
+        ALTER TABLE accounts OWNER TO dnevnik;
+    </sql>
+
+        <sql splitStatements="false">
+            CREATE SEQUENCE roles_seq
+            INCREMENT 1
+            MINVALUE 1
+            MAXVALUE 9223372036854775807
+            START 1
+            CACHE 1;
+            ALTER TABLE roles_seq OWNER TO dnevnik;
+
+            CREATE TABLE roles
+            (
+            id INTEGER PRIMARY KEY DEFAULT nextval('roles_seq'::regclass),
+            role CHARACTER VARYING(255) NOT NULL,
+            roles_rede TEXT NOT NULL
+            );
+            ALTER TABLE roles OWNER TO dnevnik;
+        </sql>
+
+    </changeSet>
+
+
+</databaseChangeLog>

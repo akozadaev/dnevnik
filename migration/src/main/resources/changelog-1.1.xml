@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+
+<changeSet id="kas02" author="kas">
+    <sql splitStatements="false">
+        INSERT INTO roles(role, roles_rede) VALUES('director', 'Директор');
+        INSERT INTO roles(role, roles_rede) VALUES('technicalsupport', 'Специалист технической поддержки');
+        INSERT INTO roles(role, roles_rede) VALUES('student', 'Студент');
+        INSERT INTO roles(role, roles_rede) VALUES('admin', 'Администратор');
+        INSERT INTO roles(role, roles_rede) VALUES('teacher', 'Преподаватель');
+        INSERT INTO accounts(login, email, last_name, first_name, middle_name, password_hash, role, create_time,
+        try_count, status)
+        VALUES ('admin','admin', 'admin', '', '', -159777129, 4, LOCALTIMESTAMP,
+        0, 3); <!--"8do9sc1gql"-->
+    </sql>
+</changeSet>
+
+
+
+</databaseChangeLog>
